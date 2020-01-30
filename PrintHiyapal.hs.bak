@@ -84,6 +84,9 @@ instance Print Integer where
 instance Print Double where
   prt _ x = doc (shows x)
 
+instance Print Id where
+  prt _ (Id i) = doc (showString i)
+
 instance Print Exp where
   prt i e = case e of
     SinExpr intexp -> prPrec i 0 (concatD [prt 0 intexp, doc (showString ";")])
@@ -97,4 +100,5 @@ instance Print IntExp where
     Mul intexp1 intexp2 -> prPrec i 3 (concatD [prt 4 intexp1, doc (showString "*"), prt 3 intexp2])
     Neg intexp -> prPrec i 4 (concatD [doc (showString "-"), prt 5 intexp])
     Nmb n -> prPrec i 5 (concatD [prt 0 n])
+    Var id -> prPrec i 5 (concatD [prt 0 id])
 

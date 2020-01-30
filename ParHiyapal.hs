@@ -29,8 +29,8 @@ happyIn10 x = Happy_GHC_Exts.unsafeCoerce# (HappyWrap10 x)
 happyOut10 :: (HappyAbsSyn ) -> HappyWrap10
 happyOut10 x = Happy_GHC_Exts.unsafeCoerce# x
 {-# INLINE happyOut10 #-}
-newtype HappyWrap11 = HappyWrap11 (Id)
-happyIn11 :: (Id) -> (HappyAbsSyn )
+newtype HappyWrap11 = HappyWrap11 (VarId)
+happyIn11 :: (VarId) -> (HappyAbsSyn )
 happyIn11 x = Happy_GHC_Exts.unsafeCoerce# (HappyWrap11 x)
 {-# INLINE happyIn11 #-}
 happyOut11 :: (HappyAbsSyn ) -> HappyWrap11
@@ -99,7 +99,7 @@ happyExpList = HappyA# "\x00\x00\x44\x06\x00\x40\x64\x00\x00\x44\x06\x00\x40\x64
 {-# NOINLINE happyExpListPerState #-}
 happyExpListPerState st =
     token_strs_expected
-  where token_strs = ["error","%dummy","%start_pExp","%start_pIntExp","%start_pIntExp1","%start_pIntExp2","%start_pIntExp3","%start_pIntExp4","%start_pIntExp5","Integer","Id","Exp","IntExp","IntExp1","IntExp2","IntExp3","IntExp4","IntExp5","'('","')'","'*'","'+'","'-'","'/'","';'","L_integ","L_Id","%eof"]
+  where token_strs = ["error","%dummy","%start_pExp","%start_pIntExp","%start_pIntExp1","%start_pIntExp2","%start_pIntExp3","%start_pIntExp4","%start_pIntExp5","Integer","VarId","Exp","IntExp","IntExp1","IntExp2","IntExp3","IntExp4","IntExp5","'('","')'","'*'","'+'","'-'","'/'","';'","L_integ","L_VarId","%eof"]
         bit_start = st * 28
         bit_end = (st + 1) * 28
         read_bit = readArrayBit happyExpList
@@ -159,9 +159,9 @@ happyReduction_7 happy_x_1
 
 happyReduce_8 = happySpecReduce_1  1# happyReduction_8
 happyReduction_8 happy_x_1
-	 =  case happyOutTok happy_x_1 of { (PT _ (T_Id happy_var_1)) -> 
+	 =  case happyOutTok happy_x_1 of { (PT _ (T_VarId happy_var_1)) -> 
 	happyIn11
-		 (Id (happy_var_1)
+		 (VarId (happy_var_1)
 	)}
 
 happyReduce_9 = happySpecReduce_2  2# happyReduction_9
@@ -302,7 +302,7 @@ happyNewToken action sts stk (tk:tks) =
 	PT _ (TS _ 6) -> cont 6#;
 	PT _ (TS _ 7) -> cont 7#;
 	PT _ (TI happy_dollar_dollar) -> cont 8#;
-	PT _ (T_Id happy_dollar_dollar) -> cont 9#;
+	PT _ (T_VarId happy_dollar_dollar) -> cont 9#;
 	_ -> happyError' ((tk:tks), [])
 	}
 

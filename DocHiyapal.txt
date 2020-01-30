@@ -17,7 +17,7 @@ Integer literals //Integer// are nonempty sequences of digits.
 
 
 
-Id literals are recognized by the regular expression
+VarId literals are recognized by the regular expression
 `````lower (letter | digit | '_')*`````
 
 
@@ -54,7 +54,7 @@ All other symbols are terminals.
   | //IntExp4// | -> | ``-`` //IntExp5// 
   |  |  **|**  | //IntExp5// 
   | //IntExp5// | -> | //Integer// 
-  |  |  **|**  | //Id// 
+  |  |  **|**  | //VarId// 
   |  |  **|**  | ``(`` //IntExp// ``)`` 
 
 

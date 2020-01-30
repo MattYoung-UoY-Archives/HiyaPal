@@ -81,7 +81,7 @@ data Tok =
  | TV !String         -- identifiers
  | TD !String         -- double precision float literals
  | TC !String         -- character literals
- | T_Id !String
+ | T_VarId !String
 
  deriving (Eq,Show,Ord)
 
@@ -119,7 +119,7 @@ prToken t = case t of
   PT _ (TD s)   -> s
   PT _ (TC s)   -> s
   Err _         -> "#error"
-  PT _ (T_Id s) -> s
+  PT _ (T_VarId s) -> s
 
 
 data BTree = N | B String Tok BTree BTree deriving (Show)
@@ -216,7 +216,7 @@ utf8Encode = map fromIntegral . go . ord
                         ]
 
 alex_action_1 =  tok (\p s -> PT p (eitherResIdent (TV . share) s)) 
-alex_action_2 =  tok (\p s -> PT p (eitherResIdent (T_Id . share) s)) 
+alex_action_2 =  tok (\p s -> PT p (eitherResIdent (T_VarId . share) s)) 
 alex_action_3 =  tok (\p s -> PT p (eitherResIdent (TV . share) s)) 
 alex_action_4 =  tok (\p s -> PT p (TI $ share s))    
 {-# LINE 1 "templates/GenericTemplate.hs" #-}
