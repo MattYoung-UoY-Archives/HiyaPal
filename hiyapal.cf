@@ -1,0 +1,9 @@
+SinExpr. Exp ::= IntExp ";";
+Expr. Exp ::= IntExp ";" Exp;
+
+Div. IntExp ::= IntExp1 "/" IntExp;
+Sub. IntExp1 ::= IntExp2 "-" IntExp1;
+Add. IntExp2 ::= IntExp3 "+" IntExp2;
+Mul. IntExp3 ::= IntExp4 "*" IntExp3;
+Nmb. IntExp4 ::= Integer;
+coercions IntExp 4;
