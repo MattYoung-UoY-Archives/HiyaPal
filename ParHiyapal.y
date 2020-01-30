@@ -14,6 +14,7 @@ import ErrM
 %name pIntExp2 IntExp2
 %name pIntExp3 IntExp3
 %name pIntExp4 IntExp4
+%name pIntExp5 IntExp5
 -- no lexer declaration
 %monad { Err } { thenM } { returnM }
 %tokentype {Token}
@@ -49,7 +50,9 @@ IntExp3 :: { IntExp }
 IntExp3 : IntExp4 '*' IntExp3 { AbsHiyapal.Mul $1 $3 }
         | IntExp4 { $1 }
 IntExp4 :: { IntExp }
-IntExp4 : Integer { AbsHiyapal.Nmb $1 } | '(' IntExp ')' { $2 }
+IntExp4 : '-' IntExp5 { AbsHiyapal.Neg $2 } | IntExp5 { $1 }
+IntExp5 :: { IntExp }
+IntExp5 : Integer { AbsHiyapal.Nmb $1 } | '(' IntExp ')' { $2 }
 {
 
 returnM :: a -> Err a

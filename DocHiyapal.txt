@@ -47,7 +47,9 @@ All other symbols are terminals.
   |  |  **|**  | //IntExp3// 
   | //IntExp3// | -> | //IntExp4// ``*`` //IntExp3// 
   |  |  **|**  | //IntExp4// 
-  | //IntExp4// | -> | //Integer// 
+  | //IntExp4// | -> | ``-`` //IntExp5// 
+  |  |  **|**  | //IntExp5// 
+  | //IntExp5// | -> | //Integer// 
   |  |  **|**  | ``(`` //IntExp// ``)`` 
 
 

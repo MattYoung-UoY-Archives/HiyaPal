@@ -12,6 +12,7 @@ data Exp = SinExpr IntExp | Expr IntExp Exp
 
 data IntExp
     = Div IntExp IntExp
+    | Sub IntExp IntExp
     | Add IntExp IntExp
     | Mul IntExp IntExp
     | Nmb Integer

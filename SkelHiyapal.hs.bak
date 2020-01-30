@@ -16,6 +16,7 @@ transExp x = case x of
 transIntExp :: IntExp -> Result
 transIntExp x = case x of
   Div intexp1 intexp2 -> failure x
+  Sub intexp1 intexp2 -> failure x
   Add intexp1 intexp2 -> failure x
   Mul intexp1 intexp2 -> failure x
   Nmb integer -> failure x

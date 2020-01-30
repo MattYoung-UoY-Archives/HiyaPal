@@ -15,6 +15,7 @@ data IntExp
     | Sub IntExp IntExp
     | Add IntExp IntExp
     | Mul IntExp IntExp
+    | Neg IntExp
     | Nmb Integer
   deriving (Eq, Ord, Show, Read)
 
