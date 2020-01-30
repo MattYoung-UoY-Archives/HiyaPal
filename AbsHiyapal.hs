@@ -7,6 +7,7 @@ module AbsHiyapal where
 
 
 
+newtype Id = Id String deriving (Eq, Ord, Show, Read)
 data Exp = SinExpr IntExp | Expr IntExp Exp
   deriving (Eq, Ord, Show, Read)
 
@@ -17,5 +18,6 @@ data IntExp
     | Mul IntExp IntExp
     | Neg IntExp
     | Nmb Integer
+    | Var Id
   deriving (Eq, Ord, Show, Read)
 

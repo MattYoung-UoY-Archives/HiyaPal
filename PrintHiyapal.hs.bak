@@ -95,5 +95,6 @@ instance Print IntExp where
     Sub intexp1 intexp2 -> prPrec i 1 (concatD [prt 2 intexp1, doc (showString "-"), prt 1 intexp2])
     Add intexp1 intexp2 -> prPrec i 2 (concatD [prt 3 intexp1, doc (showString "+"), prt 2 intexp2])
     Mul intexp1 intexp2 -> prPrec i 3 (concatD [prt 4 intexp1, doc (showString "*"), prt 3 intexp2])
-    Nmb n -> prPrec i 4 (concatD [prt 0 n])
+    Neg intexp -> prPrec i 4 (concatD [doc (showString "-"), prt 5 intexp])
+    Nmb n -> prPrec i 5 (concatD [prt 0 n])
 

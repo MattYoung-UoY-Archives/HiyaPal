@@ -19,5 +19,6 @@ transIntExp x = case x of
   Sub intexp1 intexp2 -> failure x
   Add intexp1 intexp2 -> failure x
   Mul intexp1 intexp2 -> failure x
+  Neg intexp -> failure x
   Nmb integer -> failure x
 

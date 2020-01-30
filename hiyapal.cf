@@ -1,3 +1,5 @@
+token Id (lower (letter | digit | '_')*) ;
+
 SinExpr. Exp ::= IntExp ";";
 Expr. Exp ::= IntExp ";" Exp;
 
@@ -7,4 +9,5 @@ Add. IntExp2 ::= IntExp3 "+" IntExp2;
 Mul. IntExp3 ::= IntExp4 "*" IntExp3;
 Neg. IntExp4 ::= "-" IntExp5;
 Nmb. IntExp5 ::= Integer;
+Var. IntExp5 ::= Id;
 coercions IntExp 5;

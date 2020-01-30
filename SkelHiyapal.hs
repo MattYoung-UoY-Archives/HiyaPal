@@ -9,6 +9,9 @@ type Result = Err String
 failure :: Show a => a -> Result
 failure x = Bad $ "Undefined case: " ++ show x
 
+transId :: Id -> Result
+transId x = case x of
+  Id string -> failure x
 transExp :: Exp -> Result
 transExp x = case x of
   SinExpr intexp -> failure x
@@ -21,4 +24,5 @@ transIntExp x = case x of
   Mul intexp1 intexp2 -> failure x
   Neg intexp -> failure x
   Nmb integer -> failure x
+  Var id -> failure x
 

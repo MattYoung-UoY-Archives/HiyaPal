@@ -28,11 +28,13 @@ import ErrM
   ';' { PT _ (TS _ 7) }
 
 L_integ  { PT _ (TI $$) }
+L_Id { PT _ (T_Id $$) }
 
 
 %%
 
 Integer :: { Integer } : L_integ  { (read ( $1)) :: Integer }
+Id    :: { Id} : L_Id { Id ($1)}
 
 Exp :: { Exp }
 Exp : IntExp ';' { AbsHiyapal.SinExpr $1 }
@@ -52,7 +54,9 @@ IntExp3 : IntExp4 '*' IntExp3 { AbsHiyapal.Mul $1 $3 }
 IntExp4 :: { IntExp }
 IntExp4 : '-' IntExp5 { AbsHiyapal.Neg $2 } | IntExp5 { $1 }
 IntExp5 :: { IntExp }
-IntExp5 : Integer { AbsHiyapal.Nmb $1 } | '(' IntExp ')' { $2 }
+IntExp5 : Integer { AbsHiyapal.Nmb $1 }
+        | Id { AbsHiyapal.Var $1 }
+        | '(' IntExp ')' { $2 }
 {
 
 returnM :: a -> Err a
