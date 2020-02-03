@@ -9,6 +9,8 @@ import ErrM
 }
 
 %name pExp Exp
+%name pExp1 Exp1
+%name pBoolExp BoolExp
 %name pIntExp IntExp
 %name pIntExp1 IntExp1
 %name pIntExp2 IntExp2
@@ -29,16 +31,26 @@ import ErrM
 
 L_integ  { PT _ (TI $$) }
 L_VarId { PT _ (T_VarId $$) }
+L_Boolean { PT _ (T_Boolean $$) }
 
 
 %%
 
 Integer :: { Integer } : L_integ  { (read ( $1)) :: Integer }
 VarId    :: { VarId} : L_VarId { VarId ($1)}
+Boolean    :: { Boolean} : L_Boolean { Boolean ($1)}
 
 Exp :: { Exp }
-Exp : IntExp ';' { AbsHiyapal.SinExpr $1 }
-    | IntExp ';' Exp { AbsHiyapal.Expr $1 $3 }
+Exp : IntExp ';' { AbsHiyapal.SinIExpr $1 }
+    | IntExp ';' Exp { AbsHiyapal.IExpr $1 $3 }
+    | Exp1 { $1 }
+Exp1 :: { Exp }
+Exp1 : BoolExp ';' { AbsHiyapal.SinBExpr $1 }
+     | BoolExp ';' Exp { AbsHiyapal.BExpr $1 $3 }
+     | '(' Exp ')' { $2 }
+BoolExp :: { BoolExp }
+BoolExp : Boolean { AbsHiyapal.Val $1 }
+        | VarId { AbsHiyapal.BVar $1 }
 IntExp :: { IntExp }
 IntExp : IntExp1 '/' IntExp { AbsHiyapal.Div $1 $3 }
        | IntExp1 { $1 }
@@ -55,7 +67,7 @@ IntExp4 :: { IntExp }
 IntExp4 : '-' IntExp5 { AbsHiyapal.Neg $2 } | IntExp5 { $1 }
 IntExp5 :: { IntExp }
 IntExp5 : Integer { AbsHiyapal.Nmb $1 }
-        | VarId { AbsHiyapal.Var $1 }
+        | VarId { AbsHiyapal.IVar $1 }
         | '(' IntExp ')' { $2 }
 {
 

@@ -61,11 +61,11 @@ alex_accept = listArray (0 :: Int, 8)
 alex_actions = array (0 :: Int, 4)
   [ (3,alex_action_1)
   , (2,alex_action_2)
-  , (1,alex_action_3)
-  , (0,alex_action_4)
+  , (1,alex_action_4)
+  , (0,alex_action_5)
   ]
 
-{-# LINE 38 "LexHiyapal.x" #-}
+{-# LINE 39 "LexHiyapal.x" #-}
 
 
 tok :: (Posn -> String -> Token) -> (Posn -> String -> Token)
@@ -82,6 +82,7 @@ data Tok =
  | TD !String         -- double precision float literals
  | TC !String         -- character literals
  | T_VarId !String
+ | T_Boolean !String
 
  deriving (Eq,Show,Ord)
 
@@ -120,6 +121,7 @@ prToken t = case t of
   PT _ (TC s)   -> s
   Err _         -> "#error"
   PT _ (T_VarId s) -> s
+  PT _ (T_Boolean s) -> s
 
 
 data BTree = N | B String Tok BTree BTree deriving (Show)
@@ -217,8 +219,9 @@ utf8Encode = map fromIntegral . go . ord
 
 alex_action_1 =  tok (\p s -> PT p (eitherResIdent (TV . share) s)) 
 alex_action_2 =  tok (\p s -> PT p (eitherResIdent (T_VarId . share) s)) 
-alex_action_3 =  tok (\p s -> PT p (eitherResIdent (TV . share) s)) 
-alex_action_4 =  tok (\p s -> PT p (TI $ share s))    
+alex_action_3 =  tok (\p s -> PT p (eitherResIdent (T_Boolean . share) s)) 
+alex_action_4 =  tok (\p s -> PT p (eitherResIdent (TV . share) s)) 
+alex_action_5 =  tok (\p s -> PT p (TI $ share s))    
 {-# LINE 1 "templates/GenericTemplate.hs" #-}
 -- -----------------------------------------------------------------------------
 -- ALEX TEMPLATE

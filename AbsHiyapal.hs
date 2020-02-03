@@ -8,7 +8,15 @@ module AbsHiyapal where
 
 
 newtype VarId = VarId String deriving (Eq, Ord, Show, Read)
-data Exp = SinExpr IntExp | Expr IntExp Exp
+newtype Boolean = Boolean String deriving (Eq, Ord, Show, Read)
+data Exp
+    = SinIExpr IntExp
+    | IExpr IntExp Exp
+    | SinBExpr BoolExp
+    | BExpr BoolExp Exp
+  deriving (Eq, Ord, Show, Read)
+
+data BoolExp = Val Boolean | BVar VarId
   deriving (Eq, Ord, Show, Read)
 
 data IntExp
@@ -18,6 +26,6 @@ data IntExp
     | Mul IntExp IntExp
     | Neg IntExp
     | Nmb Integer
-    | Var VarId
+    | IVar VarId
   deriving (Eq, Ord, Show, Read)
 

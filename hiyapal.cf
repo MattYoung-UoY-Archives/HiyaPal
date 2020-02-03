@@ -1,7 +1,14 @@
 token VarId (lower (letter | digit | '_')*) ;
+token Boolean ('t' | 'f');
 
-SinExpr. Exp ::= IntExp ";";
-Expr. Exp ::= IntExp ";" Exp;
+SinIExpr. Exp ::= IntExp ";"; 
+IExpr. Exp ::= IntExp ";" Exp; 
+SinBExpr. Exp1 ::= BoolExp ";";
+BExpr. Exp1 ::= BoolExp ";" Exp;
+coercions Exp 1;
+
+Val. BoolExp ::= Boolean;
+BVar. BoolExp ::= VarId;
 
 Div. IntExp ::= IntExp1 "/" IntExp;
 Sub. IntExp1 ::= IntExp2 "-" IntExp1;
@@ -9,5 +16,5 @@ Add. IntExp2 ::= IntExp3 "+" IntExp2;
 Mul. IntExp3 ::= IntExp4 "*" IntExp3;
 Neg. IntExp4 ::= "-" IntExp5;
 Nmb. IntExp5 ::= Integer;
-Var. IntExp5 ::= VarId;
+IVar. IntExp5 ::= VarId;
 coercions IntExp 5;
